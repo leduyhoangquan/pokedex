@@ -348,8 +348,9 @@ async function showDetail(id) {
     const prev = id === 1 ? maxId : id - 1, next = id === maxId ? 1 : id + 1;
     const ft = p.height / 10 / 0.3048, feet = Math.floor(ft), inch = Math.round((ft - feet) * 12);
     const kg = p.weight / 10, lbs = (kg * 2.20462).toFixed(1);
+    const fem = sp.genderRate / 8 * 100, male = 100 - fem;
     const gender = sp.genderRate < 0 ? 'Genderless'
-      : `<span class="gender"><span class="m" title="${(8 - sp.genderRate) / 8 * 100}% male">♂</span> <span class="f" title="${sp.genderRate / 8 * 100}% female">♀</span></span>`;
+      : `<span class="gender">${male > 0 ? `<span class="m" title="${male}% male">♂</span>` : ''}${male > 0 && fem > 0 ? ' ' : ''}${fem > 0 ? `<span class="f" title="${fem}% female">♀</span>` : ''}</span>`;
     const w = weakness(p.types);
 
     const seen = new Set(), vers = [];
